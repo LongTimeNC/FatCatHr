@@ -4,7 +4,8 @@ import { Message } from 'element-ui'
 
 // 创建一个新的axios实例
 const service = axios.create({
-  baseURL: '/api',
+  // 基础地址
+  baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000
 })
 // 请求拦截器：两个回调函数：成功执行第一个，失败执行第二个
