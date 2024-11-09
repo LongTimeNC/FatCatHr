@@ -38,7 +38,7 @@ const actions = {
   // 获取用户基本资料
   async getUserInfo(context) {
     const result = await getUserInfo()
-    context.commit('userInfo', result)
+    context.commit('setUserInfo', result)
   }
 }
 export default {
