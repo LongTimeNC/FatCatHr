@@ -1,8 +1,9 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { login } from '@/api/user'
 // 存放数据
 const state = {
   // 从缓存中读取初始值
-  token: getToken
+  token: getToken()
 }
 
 // 修改数据
@@ -22,11 +23,12 @@ const mutations = {
 // 异步操作
 const actions = {
   // context上下文，传入参数
-  login(context, data) {
+  async login(context, data) {
     console.log(data)
     // 调用登录接口 返回一个token
-
-    context.commit('setToken', '123456')
+    const token = await login(data)
+    console.log(token)
+    context.commit('setToken', token)
   }
 }
 export default {

@@ -12,7 +12,7 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
   // 注入token,放到请求头里面
   if (store.getters.token) {
-    config.headers.Authorization = 'Bearer ' + store.getters.token
+    config.headers.Authorization = `Bearer ${store.getters.token}`
   }
   return config
 }, (error) => {
@@ -25,6 +25,7 @@ service.interceptors.response.use((response) => {
   if (success) {
     return data
   } else {
+    Message({ type: 'error', message: message })
     return Promise.reject(new Error(message))
   }
 }, (error) => {
