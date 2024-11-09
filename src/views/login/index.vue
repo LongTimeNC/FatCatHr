@@ -71,7 +71,7 @@ export default {
     login() {
       this.$refs.from.validate((isOK) => {
         if (isOK) {
-          alert('校验通过')
+          this.$store.dispatch('user/login', this.loginFrom)
         }
       })
     }
