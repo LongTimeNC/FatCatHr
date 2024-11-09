@@ -8,7 +8,8 @@
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <!-- 头像和名称 -->
-          <img :src="avatar" class="user-avatar">
+          <img v-if="avatar" :src="avatar" class="user-avatar">
+          <span v-else class="username">{{ name?.charAt(0) }}</span>
           <span class="name">{{ name }}</span>
           <!-- 图标 齿轮-->
           <i class="el-icon-setting" />
@@ -128,6 +129,17 @@ export default {
         .name {
           // 用户名称右侧距离
           margin-right: 10px;
+        }
+        // 自定义没有头向下的显示
+        .username {
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          background-color: #04c9be;
+          color: #fff;
+          border-radius: 50%;
+          margin-right: 4px;
         }
         .el-icon-setting {
           font-size: 20px;
