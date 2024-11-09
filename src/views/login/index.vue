@@ -70,7 +70,7 @@ export default {
   methods: {
     login() {
       this.$refs.from.validate((isOK) => {
-        if (isOK){
+        if (isOK) {
           alert('校验通过')
         }
       })
