@@ -6,20 +6,20 @@
       <el-card shadow="never" class="login-card">
         <!--登录表单-->
         <!-- el-form > el-form-item > el-input -->
-        <el-form>
-          <el-form-item>
-            <el-input placeholder="请输入手机号"/>
+        <el-form ref="from" :model="loginFrom" :rules="loginRules">
+          <el-form-item prop="mobile">
+            <el-input v-model="loginFrom.mobile" placeholder="请输入手机号"/>
           </el-form-item>
-          <el-form-item>
-            <el-input placeholder="请输入密码"/>
+          <el-form-item prop="password">
+            <el-input v-model="loginFrom.password" show-password placeholder="请输入密码"/>
           </el-form-item>
-          <el-form-item>
-            <el-checkbox>
+          <el-form-item prop="isAgree">
+            <el-checkbox v-model="loginFrom.isAgree">
               用户平台使用协议
             </el-checkbox>
           </el-form-item>
           <el-form-item>
-            <el-button style="width:350px" type="primary">登录</el-button>
+            <el-button @click="login" style="width:350px" type="primary">登录</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -28,7 +28,54 @@
 </template>
 <script>
 export default {
-  name: "Login"
+  name: 'Login',
+  data() {
+    return {
+      loginFrom: {
+        mobile: '',
+        password: '',
+        isAgree: false
+      },
+      loginRules: {
+        mobile: [{
+          required: true,
+          message: '请输入手机号',
+          trigger: 'blur'
+        }, {
+          pattern: /^1[3-9]\d{9}$/,
+          message: '手机号格式不正确',
+          trigger: 'blur'
+        }],
+        password: [{
+          required: true,
+          message: '请输入密码',
+          trigger: 'blur'
+        }, {
+          min: 4,
+          max: 12,
+          message: '密码长度应该为4-12位'
+        }],
+        isAgree: [{
+          validator: (rule, value, callback) => {
+            // rule规则
+            // value检查的数据 true/false
+            // callback 函数 执行这个函数
+            // 成功执行callback 失败也执行callback(错误对象 new Error(错误信息))
+            value ? callback() : callback(new Error('没有勾选用户平台协议'))
+          }
+        }]
+      }
+    }
+  },
+  methods: {
+    login() {
+      this.$refs.from.validate((isOK) => {
+        if (isOK){
+          alert('校验通过')
+        }
+      })
+    }
+  }
 }
 </script>
 <style lang="scss">
